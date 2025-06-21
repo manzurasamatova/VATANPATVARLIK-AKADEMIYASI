@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ro‘yxatdan o‘tish - Vatanparvarlik Akademiyasi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #eef3f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .login-box {
+      background-color: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #003366;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #003366;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #005599;
+    }
+
+    .error {
+      color: red;
+      font-size: 0.9rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>Vatanparvarlik Akademiyasiga xush kelibsiz!</h2>
+    <p>Iltimos, quyidagi maydonlarni to‘ldiring:</p>
+
+    <input type="text" id="name" placeholder="Ismingiz">
+    <input type="email" id="email" placeholder="Email manzil">
+    <input type="password" id="password" placeholder="Parolingiz">
+    <div class="error" id="error"></div>
+    <button onclick="sendCode()">Kodni yuborish</button>
+
+    <div id="codeSection" class="hidden">
+      <input type="text" id="code" placeholder="Tasdiqlash kodi">
+      <button onclick="verifyCode()">Kodni tasdiqlash</button>
+    </div>
+  </div>
+
+  <script>
+    let generatedCode = "";
+
+    function sendCode() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const error = document.getElementById('error');
+
+      if (!name || !email || !password) {
+        error.textContent = "Iltimos, barcha maydonlarni to‘ldiring.";
+        return;
+      }
+
+      if (password.length < 6) {
+        error.textContent = "Parol kamida 6 ta belgidan iborat bo‘lishi kerak.";
+        return;
+      }
+
+      generatedCode = Math.floor(100000 + Math.random() * 900000).toString();
+      alert("📧 Emailga yuborilgan kod: " + generatedCode);
+      document.getElementById('codeSection').classList.remove('hidden');
+      error.textContent = "";
+    }
+
+    function verifyCode() {
+      const code = document.getElementById('code').value.trim();
+      const error = document.getElementById('error');
+
+      if (code === generatedCode) {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userEmail', email);
+
+        alert("🎉 Ro‘yxatdan o‘tish muvaffaqiyatli yakunlandi!");
+        window.location.href = 'index.html';
+      } else {
+        error.textContent = "❌ Noto‘g‘ri tasdiqlash kodi!";
+      }
+    }
+  </script>
+
+</body>
+</html>

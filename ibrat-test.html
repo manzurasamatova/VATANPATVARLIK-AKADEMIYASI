@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Is’hoqxon Ibrat Testi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #005f73;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #003366;
+            text-decoration: none;
+        }
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            text-align: left;
+        }
+        .option {
+            display: block;
+            background: #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .option:hover {
+            background: #bbb;
+        }
+        .selected {
+            background: #76c7c0 !important;
+            color: white;
+            font-weight: bold;
+        }
+        #submit {
+            background: #990606;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #submit:hover {
+            background: #730404;
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #005f73;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>📝 Is’hoqxon Ibrat haqida test</header>
+
+    <div class="container">
+        <div id="test-container"></div>
+        <button id="submit">Natijani ko'rish</button>
+        <p id="result"></p>
+        <div id="mistakes"></div>
+    </div>
+
+    <script>
+        const testSavollari = [
+            { question: "Is’hoqxon Ibrat qachon tug‘ilgan?", options: ["1862-yil", "1873-yil", "1850-yil"], correct: 0 },
+            { question: "Is’hoqxon Ibratning to‘liq ismi nima?", options: ["Muhammad Is’hoqxon Junaydulloho‘g‘li", "Is’hoqxon Avazxon o‘g‘li", "Is’hoqxon Qori"], correct: 0 },
+            { question: "Is’hoqxon Ibrat qayerda tug‘ilgan?", options: ["Namangan", "Qo‘qon", "Farg‘ona"], correct: 1 },
+            { question: "Is’hoqxon Ibrat qanday faoliyatlar bilan shug‘ullangan?", options: ["Ma’rifatchilik, tarjimonlik, geografiya", "Arxitektura va harbiy ishlar", "Fizika va kimyo"], correct: 0 },
+            { question: "Ibrat necha tilni bilgan?", options: ["10 dan ortiq", "Faqat 2", "4 ta"], correct: 0 },
+            { question: "Is’hoqxon Ibrat qanday maktab tashkil qilgan?", options: ["Jadid maktabi", "Rasmiy rus maktabi", "Madrasai Mirzo"], correct: 0 },
+            { question: "Uning ilk lug‘at asari qanday nomlanadi?", options: ["Lug‘ati Sittai Zabon", "Devoni Hikmat", "Ilmi Hisob"], correct: 0 },
+            { question: "Is’hoqxon Ibrat qachon vafot etgan?", options: ["1935-yil", "1925-yil", "1942-yil"], correct: 1 },
+            { question: "Ibrat o‘z asarlarida nimalarni targ‘ib qilgan?", options: ["Ilm, hunar, ma’rifat", "Urush va siyosat", "Sport va harbiylik"], correct: 0 },
+            { question: "Ibrat qayerda o‘qituvchilik qilgan?", options: ["Qo‘qon", "Toshkent", "Samarqand"], correct: 0 }
+        ];
+
+        let userAnswers = new Array(testSavollari.length).fill(null);
+        const testContainer = document.getElementById("test-container");
+
+        function loadTest() {
+            testSavollari.forEach((q, index) => {
+                const questionElement = document.createElement("div");
+                questionElement.classList.add("question");
+                questionElement.innerText = (index + 1) + ". " + q.question;
+
+                const optionsElement = document.createElement("div");
+                optionsElement.classList.add("options");
+
+                q.options.forEach((option, i) => {
+                    const optionElement = document.createElement("div");
+                    optionElement.classList.add("option");
+                    optionElement.innerText = option;
+                    optionElement.onclick = () => selectAnswer(index, i, optionElement);
+                    optionsElement.appendChild(optionElement);
+                });
+
+                testContainer.appendChild(questionElement);
+                testContainer.appendChild(optionsElement);
+            });
+        }
+
+        function selectAnswer(questionIndex, optionIndex, optionElement) {
+            userAnswers[questionIndex] = optionIndex;
+            const options = optionElement.parentElement.getElementsByClassName("option");
+            for (let opt of options) opt.classList.remove("selected");
+            optionElement.classList.add("selected");
+        }
+
+        document.getElementById("submit").onclick = function () {
+            let score = 0;
+            let mistakes = [];
+
+            for (let i = 0; i < testSavollari.length; i++) {
+                if (userAnswers[i] === testSavollari[i].correct) {
+                    score++;
+                } else {
+                    mistakes.push(
+                        `<p class="incorrect">${i + 1}-savol xato: <br> Siz tanlagan: ${testSavollari[i].options[userAnswers[i]] || "Tanlanmagan"}<br> To'g'ri javob: ${testSavollari[i].options[testSavollari[i].correct]}</p>`
+                    );
+                }
+            }
+
+            document.getElementById("result").innerText = "Sizning natijangiz: " + score + " / " + testSavollari.length;
+            document.getElementById("mistakes").innerHTML = mistakes.length > 0 ? mistakes.join("") : "<p>Barcha javoblaringiz to‘g‘ri! 🎉</p>";
+        };
+
+        loadTest();
+    </script>
+
+    <a class="back-link" href="index.html">⬅️ Asosiy sahifaga qaytish</a>
+</body>
+</html>

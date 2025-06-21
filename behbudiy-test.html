@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahmudxo‘ja Behbudiy Testi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #005f73;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #003366;
+            text-decoration: none;
+        }
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            text-align: left;
+        }
+        .option {
+            display: block;
+            background: #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .option:hover {
+            background: #bbb;
+        }
+        .selected {
+            background: #76c7c0 !important;
+            color: white;
+            font-weight: bold;
+        }
+        #submit {
+            background: #990606;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #submit:hover {
+            background: #730404;
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #005f73;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        📝 Mahmudxo‘ja Behbudiy haqida test
+    </header>
+
+    <div class="container">
+        <div id="test-container"></div>
+        <button id="submit">Natijani ko'rish</button>
+        <p id="result"></p>
+        <div id="mistakes"></div>
+    </div>
+
+    <script>
+        const testSavollari = [
+            { question: "Mahmudxo‘ja Behbudiy kim bo‘lgan?", options: ["Shifokor", "Jadid pedagog va ma'rifatparvar", "Qo‘shiqchi"], correct: 1 },
+            { question: "U qanday maktablarni tashkil qilgan?", options: ["Eski usul", "Yevropa maktablari", "Yangi usul (jadid) maktablar"], correct: 2 },
+            { question: "Behbudiy asosan qaysi sohalarda faol bo‘lgan?", options: ["San’at va sport", "Diniy soha", "Ta’lim, matbuot, teatr"], correct: 2 },
+            { question: "Uning mashhur dramasi qanday nomlanadi?", options: ["Mehribon ota", "Padarkush", "Yolg‘onchi do‘st"], correct: 1 },
+            { question: "Behbudiy qanday asarni yozgan?", options: ["Muntaxab at-tarix", "Axloq saboqlari", "Ilmning kuchi"], correct: 0 },
+            { question: "Behbudiy o‘z matbaasini nima uchun ochgan?", options: ["Kitob savdosi uchun", "Ilm-ma’rifatni tarqatish uchun", "Rasm chizish uchun"], correct: 1 },
+            { question: "U qaysi fanlarni o‘qitishni targ‘ib qilgan?", options: ["Faqat diniy fanlar", "San’at va madaniyat", "Matematika, tarix, fizika, geografiya"], correct: 2 },
+            { question: "Behbudiy qanday maqsadni ko‘zlagan?", options: ["Boylik orttirish", "Jamiyatni isloh qilish", "Sayohat qilish"], correct: 1 },
+            { question: "Uning teatr orqali asosiy maqsadi nima edi?", options: ["Odamlarni kuldirish", "Pul ishlash", "Yoshlarni vatanparvarlikka o‘rgatish"], correct: 2 },
+            { question: "Uning faoliyati asosan qayerda bo‘lgan?", options: ["Toshkent", "Samarqand", "Buxoro va Turkiston"], correct: 2 }
+        ];
+
+        let userAnswers = new Array(testSavollari.length).fill(null);
+        const testContainer = document.getElementById("test-container");
+
+        function loadTest() {
+            testSavollari.forEach((q, index) => {
+                const questionElement = document.createElement("div");
+                questionElement.classList.add("question");
+                questionElement.innerText = (index + 1) + ". " + q.question;
+
+                const optionsElement = document.createElement("div");
+                optionsElement.classList.add("options");
+
+                q.options.forEach((option, i) => {
+                    const optionElement = document.createElement("div");
+                    optionElement.classList.add("option");
+                    optionElement.innerText = option;
+                    optionElement.onclick = () => selectAnswer(index, i, optionElement);
+                    optionsElement.appendChild(optionElement);
+                });
+
+                testContainer.appendChild(questionElement);
+                testContainer.appendChild(optionsElement);
+            });
+        }
+
+        function selectAnswer(questionIndex, optionIndex, optionElement) {
+            userAnswers[questionIndex] = optionIndex;
+
+            const options = optionElement.parentElement.getElementsByClassName("option");
+            for (let opt of options) {
+                opt.classList.remove("selected");
+            }
+
+            optionElement.classList.add("selected");
+        }
+
+        document.getElementById("submit").onclick = function () {
+            let score = 0;
+            let mistakes = [];
+
+            for (let i = 0; i < testSavollari.length; i++) {
+                if (userAnswers[i] === testSavollari[i].correct) {
+                    score++;
+                } else {
+                    mistakes.push(
+                        `<p class="incorrect">${i + 1}-savol xato: <br> Siz tanlagan: ${testSavollari[i].options[userAnswers[i]] || "Tanlanmagan"}<br> To'g'ri javob: ${testSavollari[i].options[testSavollari[i].correct]}</p>`
+                    );
+                }
+            }
+
+            document.getElementById("result").innerText = "Sizning natijangiz: " + score + " / " + testSavollari.length;
+            document.getElementById("mistakes").innerHTML = mistakes.length > 0 ? mistakes.join("") : "<p>Barcha javoblaringiz to‘g‘ri! 🎉</p>";
+        };
+
+        loadTest();
+    </script>
+    <a class="back-link" href="index.html">⬅️ Asosiy sahifaga qaytish</a>
+</body>
+</html>

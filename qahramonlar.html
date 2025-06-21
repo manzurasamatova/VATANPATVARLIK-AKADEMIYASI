@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Samatova Manzura">
+    <meta name="keywords" content="pedagoglar, vatanparvarlik, jadidlar, informatika testlari">
+    <meta name="description" content="Mahmudxo‘ja Behbudiy, Abdulla Avloniy va Is’hoqxon Ibrat haqida ma'lumotlar va testlar">
+    <title>Vatanparvar Pedagoglar</title>
+    <link rel="stylesheet" href="main.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #005f73;
+            color: white;
+            font-size: 24px;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .pedagog {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .pedagog img {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .pedagog h2 {
+            margin: 10px 0;
+        }
+        .pedagog p {
+            font-size: 16px;
+            text-align: justify;
+            padding: 0 10px;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .buttons a, .buttons button {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background: #990606;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+        .buttons a:hover, .buttons button:hover {
+            background: #730404;
+        }
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #003366;
+            text-decoration: none;
+        }
+        .info {
+            display: none;
+            background: #eef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: justify;
+            width: 90%;
+        }
+        
+        .test-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #ff6600;
+            color: white;
+            padding: 15px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+    .test-button:hover {
+        background: #cc5500;
+    }
+
+    </style>
+</head>
+<body>
+    <header>
+        📚 QAHRAMONLAR GALEREYASI
+    </header>
+    <section class="container">
+        <div class="pedagog">
+            <img src="S600xU_2x (2).webp" alt="Mahmudxo‘ja Behbudiy">
+            <h2>Mahmudxo‘ja Behbudiy</h2>
+            <p>Mahmudxo‘ja Behbudiy jadidchilik harakatining asoschilaridan biri bo‘lib, milliy ta'lim va teatr rivojiga katta hissa qo‘shgan.</p>
+            <div class="buttons">
+                <button onclick="toggleInfo('behbudiy-info')">📖 Pedagogik hissasi</button>
+                <a href="behbudiy-test.html" class="test-link">📝 Test yeching</a>
+            </div>
+            <div class="info" id="behbudiy-info">
+                <p>📖 Yangi usul maktablari va ta’lim islohoti <br>Mahmudxo‘ja Behbudiy o‘zbek jadidchilik harakatining yetakchilaridan biri bo‘lib, u eski maktablar o‘rniga yangi usuldagi (jadid) maktablar ochishga katta e’tibor qaratdi. An’anaviy ta’lim tizimi Qur’on o‘qish va diniy bilim berishga asoslangan bo‘lsa,<br> Behbudiy:
+                    <br>✅ Dunyo fanlari: matematika, geografiya, tarix, fizika va kimyoni o‘qitish zarurligini ilgari surdi.
+                    <br>✅ Ilm-fan va ta’lim orqali jamiyatni isloh qilishga intildi.
+                    <br>✅ O‘quv dasturlarini boyitish, o‘qitish metodlarini zamonaviylashtirishga harakat qildi.
+                    
+                   <br><br> 📚 Darsliklar yaratish va nashriyot faoliyati <br>
+                    Behbudiy bolalar va o‘smirlar uchun yangi usuldagi maktab darsliklarini yozdi. U o‘zining “Muntaxab at-tarix” (Tarixdan tanlangan sahifalar) asarida o‘quvchilarga tarixni ilmiy asosda o‘rgatish g‘oyasini ilgari surdi. Bundan tashqari, Behbudiy o‘z matbaasini tashkil qilib, ilg‘or g‘oyalarni jamiyatga yetkazishda bosma nashrlarning ahamiyatini kuchaytirdi.
+                    
+                    <br>🎭 Pedagogika va teatr
+                    Uning “Padarkush” dramasi yoshlarni vatanparvarlik ruhida tarbiyalashga qaratilgan bo‘lib, o‘zbek dramaturgiyasining ilk namunalaridan biri hisoblanadi. Ushbu asarda milliy ongsizlik, johillik va o‘zga madaniyatga qul bo‘lish xavfi ko‘rsatilib, ta’lim-tarbiyaning naqadar muhimligi ta’kidlangan.
+                    </p>
+                    
+
+            </div>
+        </div>
+
+        <div class="pedagog">
+            <img src="image.png" alt="Abdulla Avloniy">
+            <h2>Abdulla Avloniy</h2>
+            <p>Abdulla Avloniy o‘zbek pedagogikasiga axloqiy tarbiya tushunchasini olib kirgan.</p>
+            <div class="buttons">
+                <button onclick="toggleInfo('avloniy-info')">📖 Pedagogik hissasi</button>
+                <a href="avloniy-test.html" class="test-link">📝 Test yeching</a>
+            </div>
+            <div class="info" id="avloniy-info">
+                <p>📖 Ta’lim va tarbiya haqida fundamental qarashlar <br>
+                    Abdulla Avloniy pedagogikani jamiyatning taraqqiyotini belgilovchi asosiy omillardan biri deb bilgan. Uning fikricha:
+                    <br>✅ "Millat taraqqiyoti maktab bilan bog‘liq", ya’ni ta’limga sarmoya kiritmagan jamiyat orqada qoladi.
+                    <br>✅ Tarbiya ta’limdan oldin turishi lozim, axloqiy tarbiya asosiy omil.
+                    <br>✅ O‘qituvchi eng muhim shaxs bo‘lib, uni yaxshi tayyorlash ta’lim sifati uchun hal qiluvchi ahamiyatga ega.
+                    
+                    <br><br>📚 "Turkiy Guliston yoxud Axloq" – pedagogik merosi <br>
+                    Avloniyning eng muhim asarlaridan biri “Turkiy Guliston yoxud Axloq” bo‘lib,  <br>unda: <br>
+                    🔹 Yoshlarni vatanparvarlik, mehr-oqibat, halollik va adolat kabi fazilatlarda tarbiyalash kerakligi bayon etilgan.
+                    <br>🔹 Pedagoglarning jamiyat oldidagi mas’uliyati, maktab va oilaning farzand tarbiyasidagi o‘rni yoritilgan.
+                    <br>🔹 O‘zbek maktablarida axloqiy-tarbiyaviy fanlarni kiritish kerakligi ilgari surilgan.
+                    
+                    <br>🎭 Teatr va ma’rifiy ishlar <br>
+                    Avloniy ham teatr orqali yoshlarni tarbiyalashga uringan. U tashkil qilgan “Turon” teatr jamoasi jamiyatni isloh qilishga xizmat qiluvchi sahna asarlarini namoyish qilgan.
+                    
+                    <br>📘 O‘quv qo‘llanmalari va lug‘atlar <br>
+                    U yangi usul maktablari uchun birinchi darsliklardan biri “Birinchi muallim” va “Ikkinchi muallim” asarlarini yozgan bo‘lib, bu asarlar zamonaviy o‘quv dasturlari uchun asos bo‘lib xizmat qilgan.
+                    
+                    
+                    </p>
+            </div>
+        </div>
+
+        <div class="pedagog">
+            <img src="Is’hoqxon To‘ra Ibrat (2).jpg" alt="Is’hoqxon Ibrat">
+            <h2>Is’hoqxon Ibrat</h2>
+            <p>Is’hoqxon Ibrat tilshunos, ma’rifatparvar va bosma nashrlarning rivojlanishiga katta hissa qo‘shgan.</p>
+            <div class="buttons">
+                <button onclick="toggleInfo('ibrat-info')">📖 Pedagogik hissasi</button>
+    <a href="ibrat-test.html" class="test-link">📝 Test yeching</a>
+            </div>
+            <div class="info" id="ibrat-info">
+                <p>📖 Ko‘p tillilik va ta’lim tizimidagi islohotlar <br>
+                    Is’hoqxon Ibrat o‘zbek milliy ta’limining rivojlanishi uchun xorijiy tillarni o‘rganish muhimligini ta’kidlagan. U:
+                   <br> ✅ Arab, fors, rus, ingliz va boshqa tillarni o‘rgangan.
+                   <br> ✅ Til bilimini oshirish orqali ilm-fan, texnika va tibbiyot rivojlanishini tezlashtirish mumkinligini ta’kidlagan.
+                   <br> ✅ Yosh avlodga xorijiy tillarni o‘rgatish orqali ularning bilim doirasini kengaytirish g‘oyasini ilgari surgan.
+                    
+                   <br><br> 📚 Matbaachilik va lug‘atlar yaratish<br>
+                    Is’hoqxon Ibratning eng katta pedagogik hissasi – o‘z matbaasini ochib, ilm-ma’rifatning rivojlanishiga hissa qo‘shganidir. U birinchilardan bo‘lib:
+                    <br> 🔹 “Lug‘ati sitta alsina” (Oltita til lug‘ati)ni yaratgan. Bu lug‘at arab, fors, turk, ingliz, frantsuz va rus tillarini o‘z ichiga olgan va ta’lim jarayonida katta ahamiyat kasb etgan.
+                    <br> 🔹 Tilshunoslik, lug‘atshunoslik va tarjima sohalariga e’tibor qaratgan.
+                    
+                    <br> 🏫 Maktab va darsliklar yaratish
+                    <br>Is’hoqxon Ibrat yangi usul maktablarini ochish va darsliklarni takomillashtirishga katta hissa qo‘shgan. Uning fikricha, maktablar faqatgina diniy ta’lim bilan cheklanmasdan, dunyoviy fanlarni ham o‘qitishi kerak edi.
+                    
+                    <br>📖 Ilm-fanning ommalashishiga xizmat qilgan asarlar
+                    <br>🔹 U xalqni savodli qilish uchun “Devoni Hikmat”, “Muxtasar” kabi asarlarni yozgan.
+                    <br> 🔹 Matbaachilikni rivojlantirib, kitob bosish ishlarini yo‘lga qo‘ygan.
+                    <br>  🔹 Pedagog sifatida ilm-fan va ta’limni jamiyat taraqqiyoti uchun muhim vosita deb bilgan.</p>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        function toggleInfo(id) {
+            var element = document.getElementById(id);
+            if (element.style.display === "none" || element.style.display === "") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
+    <a class="back-link" href="index.html">⬅️ Asosiy sahifaga qaytish</a>
+</body>
+</html>

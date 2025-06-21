@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mening Loyiham - Vatanparvarlik Akademiyasi</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f6fa;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #003366;
+    }
+
+    .project-form {
+      max-width: 700px;
+      margin: 30px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+      color: #003366;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      resize: vertical;
+    }
+
+    input[type="file"] {
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: #003366;
+      color: #fff;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #0055aa;
+    }
+
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+      color: #003366;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .project-card {
+      max-width: 700px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .project-card h3 {
+      color: #003366;
+    }
+
+    .project-card img, .project-card video {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    .like-btn {
+      color: green;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    .comment-box {
+      margin-top: 15px;
+      text-align: left;
+    }
+
+    .comment-box textarea {
+      width: 100%;
+      height: 60px;
+      border-radius: 8px;
+      padding: 8px;
+    }
+
+    .comment-box button {
+      margin-top: 5px;
+      font-size: 0.9rem;
+    }
+
+    .comment-list {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📁 Mening Loyiham</h1>
+
+  <div class="project-form">
+    <form id="projectForm">
+      <label for="projectName">Loyiha nomi:</label>
+      <input type="text" id="projectName" required>
+
+      <label for="description">Loyiha tavsifi:</label>
+      <textarea id="description" rows="5" required></textarea>
+
+      <label for="media">Rasm yoki video qo‘shish:</label>
+      <input type="file" id="media" accept="image/*,video/*">
+
+      <button type="submit">💾 Saqlash</button>
+    </form>
+  </div>
+
+  <div id="projects"></div>
+
+  <a class="back-link" href="index.html">⬅️ Asosiy sahifaga qaytish</a>
+
+  <script>
+    const form = document.getElementById('projectForm');
+    const projectsContainer = document.getElementById('projects');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('projectName').value;
+      const desc = document.getElementById('description').value;
+      const media = document.getElementById('media').files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = function() {
+        const url = reader.result;
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+          <h3>${name}</h3>
+          <p>${desc}</p>
+          ${media.type.startsWith('image/') ? `<img src="${url}">` : `<video src="${url}" controls></video>`}
+          <span class="like-btn" onclick="alert('Rahmat! Sizga yoqdi 😊')">👍 Menga yoqdi</span>
+          <div class="comment-box">
+            <label>💬 Izoh qoldiring:</label>
+            <textarea placeholder="Fikringizni yozing..."></textarea>
+            <button onclick="postComment(this)">Yuborish</button>
+            <div class="comment-list"></div>
+          </div>
+        `;
+        projectsContainer.prepend(card);
+        form.reset();
+      }
+
+      if (media) {
+        reader.readAsDataURL(media);
+      } else {
+        alert("⚠️ Iltimos, fayl tanlang.");
+      }
+    });
+
+    function postComment(button) {
+      const box = button.parentElement;
+      const textarea = box.querySelector('textarea');
+      const comment = textarea.value.trim();
+      if (comment) {
+        const list = box.querySelector('.comment-list');
+        const item = document.createElement('div');
+        item.textContent = '🗨️ ' + comment;
+        list.appendChild(item);
+        textarea.value = '';
+      }
+    }
+  </script>
+
+</body>
+</html>

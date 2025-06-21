@@ -1,0 +1,30 @@
+
+<!DOCTYPE html><html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vatanparvarlik Akademiyasi</title>
+  <link rel="stylesheet" href="style.css">
+  
+</head>
+<body>
+  <div class="title" >Vatanparvarlik Akademiyasi</div>
+  <div class="container">
+    <div class="box"><a href="loyiha.html">📁 Mening loyiham</a></div>
+    <div class="box"><a href="qahramonlar.html">⭐ Qahramonlar galereyasi</a></div>
+    <div class="box"><a href="video.html">🎥 Video tushunchalar</a></div>
+    <div class="box"><a href="test.html">📝 Testlar</a></div>
+    
+    
+    
+  </div>
+  <script>
+  const user = localStorage.getItem('userEmail');
+  if (!user) {
+    window.location.href = "ruyhat.html";
+  } else {
+    document.getElementById('greeting').textContent = "Xush kelibsiz, " + user;
+  }
+</script>
+</body>
+</html>

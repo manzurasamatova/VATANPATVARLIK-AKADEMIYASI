@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informatika Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background: #005f73;
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        a.back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+            font-weight: bold;
+            color: #003366;
+            text-decoration: none;
+        }
+        .question {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .options {
+            text-align: left;
+        }
+        .option {
+            display: block;
+            background: #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .option:hover {
+            background: #bbb;
+        }
+        .selected {
+            background: #76c7c0 !important;
+            color: white;
+            font-weight: bold;
+        }
+        #submit {
+            background: #990606;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        #submit:hover {
+            background: #730404;
+        }
+        #result {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #005f73;
+        }
+        .incorrect {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        📝 Informatika Testi
+    </header>
+    
+    <div class="container">
+        <div id="test-container"></div>
+        <button id="submit">Natijani ko'rish</button>
+        <p id="result"></p>
+        <div id="mistakes"></div>
+    </div>
+
+    <script>
+        // 1-11 sinf Informatika testlari
+        const testSavollari = [
+            { question: "Komp'yuterning asosiy qurilmalari qaysilar?", options: ["Monitor, sichqoncha, printer", "Protsessor, xotira, kirish-chiqish", "Sichqoncha, klaviatura, modem"], correct: 1 },
+            { question: "Algoritm nima?", options: ["Buyruqlar to‘plami", "Dasturiy ta'minot", "Kompyuter xotirasi"], correct: 0 },
+            { question: "Bit va bayt orasidagi farq?", options: ["1 bayt = 8 bit", "1 bit = 8 bayt", "1 bayt = 16 bit"], correct: 0 },
+            { question: "Operatsion tizim vazifasi nima?", options: ["Ma'lumot saqlash", "Dasturlarni boshqarish", "Rasm chizish"], correct: 1 },
+            { question: "Internet nima?", options: ["Mahalliy tarmoq", "Global kompyuter tarmog‘i", "Fayl nomi"], correct: 1 },
+            { question: "Microsoft Word dasturi nima uchun ishlatiladi?", options: ["Matn tahrirlash", "Rasm chizish", "Dastur yozish"], correct: 0 },
+            { question: "Axborot birligi nima?", options: ["Bayt", "Pixel", "Gert"], correct: 0 },
+            { question: "HTML nima?", options: ["Veb sahifa belgilash tili", "Grafik muharrir", "O‘yin"], correct: 0 },
+            { question: "Paint dasturida nima qilinadi?", options: ["Matn yoziladi", "Rasmlar yaratiladi", "Kod yoziladi"], correct: 1 },
+            { question: "Ctrl + C bu qanday amal?", options: ["O‘chirish", "Ko‘chirish", "Saqlash"], correct: 1 },
+            { question: "Kompyuterning tezkor xotirasi qanday ataladi?", options: ["ROM", "RAM", "HDD"], correct: 1 },
+            { question: "Kiritish qurilmasiga misol?", options: ["Printer", "Monitor", "Klaviatura"], correct: 2 },
+            { question: "Antivirus dasturi nima uchun kerak?", options: ["Veb sahifa ochish", "Viruslardan himoya qilish", "Rasmlarni saqlash"], correct: 1 },
+            { question: "Excel dasturi nima uchun ishlatiladi?", options: ["Matn yozish", "Jadval tuzish", "Rasm tahrirlash"], correct: 1 },
+            { question: "Google Chrome bu nima?", options: ["Brauzer", "O‘yin", "Grafik muharrir"], correct: 0 },
+            { question: "Python dasturlash tili nima uchun kerak?", options: ["Kod yozish", "Rasm chizish", "Internetga ulanish"], correct: 0 },
+            { question: "Web-sayt yaratuvchi til?", options: ["Python", "HTML", "Windows"], correct: 1 },
+            { question: "PowerPoint dasturida nima qilinadi?", options: ["Prezentatsiya yaratiladi", "Matn yoziladi", "Kod yoziladi"], correct: 0 },
+            { question: "Tizim fayllari saqlanadigan xotira?", options: ["RAM", "CD", "Disk C"], correct: 2 },
+            { question: "Ctrl + V bu qanday amal?", options: ["Qo‘yish (paste)", "Kesish", "O‘chirish"], correct: 0 },
+        
+
+            // Yana 17 ta savol qo‘shing...
+        ];
+
+        let userAnswers = new Array(testSavollari.length).fill(null);
+        const testContainer = document.getElementById("test-container");
+        
+        function loadTest() {
+            testSavollari.forEach((q, index) => {
+                const questionElement = document.createElement("div");
+                questionElement.classList.add("question");
+                questionElement.innerText = (index + 1) + ". " + q.question;
+
+                const optionsElement = document.createElement("div");
+                optionsElement.classList.add("options");
+
+                q.options.forEach((option, i) => {
+                    const optionElement = document.createElement("div");
+                    optionElement.classList.add("option");
+                    optionElement.innerText = option;
+                    optionElement.onclick = () => selectAnswer(index, i, optionElement);
+                    optionsElement.appendChild(optionElement);
+                });
+
+                testContainer.appendChild(questionElement);
+                testContainer.appendChild(optionsElement);
+            });
+        }
+
+        function selectAnswer(questionIndex, optionIndex, optionElement) {
+            userAnswers[questionIndex] = optionIndex;
+
+            const options = optionElement.parentElement.getElementsByClassName("option");
+            for (let opt of options) {
+                opt.classList.remove("selected");
+            }
+
+            optionElement.classList.add("selected");
+        }
+
+        document.getElementById("submit").onclick = function () {
+            let score = 0;
+            let mistakes = [];
+
+            for (let i = 0; i < testSavollari.length; i++) {
+                if (userAnswers[i] === testSavollari[i].correct) {
+                    score++;
+                } else {
+                    mistakes.push(
+                        `<p class="incorrect">${i + 1}-savol xato: <br> Siz tanlagan: ${testSavollari[i].options[userAnswers[i]] || "Tanlanmagan"}<br> To'g'ri javob: ${testSavollari[i].options[testSavollari[i].correct]}</p>`
+                    );
+                }
+            }
+
+            document.getElementById("result").innerText = "Sizning natijangiz: " + score + " / " + testSavollari.length;
+            document.getElementById("mistakes").innerHTML = mistakes.length > 0 ? mistakes.join("") : "<p>Barcha javoblaringiz to‘g‘ri! 🎉</p>";
+        };
+
+        loadTest();
+    </script>
+    <a class="back-link" href="index.html">⬅️ Asosiy sahifaga qaytish</a>
+</body>
+</html>
